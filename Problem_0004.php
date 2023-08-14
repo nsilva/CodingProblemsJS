@@ -34,8 +34,11 @@ function isValid(string $string):bool
 
     for ($i = 0; $i < $length; $i++) {
         if (array_key_exists($string[$i], $charMap)) {
+            // If char is a key in $charMap(an opening char), store it in the closing chars stack
             $closingCharStack[] = $charMap[$string[$i]];
         } else {
+            // If not an opening char, pull the last from the closing stack and it
+            // should be the same as the current char in the loop
             $closingChar = array_pop($closingCharStack);
             if ($string[$i] !== $closingChar) {
                 return false;
